@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, TextInput, ScrollView } from 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { TouchableRipple } from 'react-native-paper';
 import { Calendar } from 'react-native-calendars';
-import NextButton from './NextButton';
+import Button from './Button';
 import { useGlobalBottomSheet } from '../context/GlobalBottomSheetContext';
 import { fetchQuestions, submitUserPreference } from '../redux/travelCountriesSlice';
 import { useDispatch } from 'react-redux';
@@ -452,7 +452,7 @@ export const DynamicQuestionSheet = ({ questions = [], onComplete, onSkip }) => 
         </View>
 
         <View style={styles.confirmButton}>
-          <NextButton
+          <Button
             text={isLastQuestion ? "Complete" : "Next"}
             theme="dark"
             onPress={handleNext}

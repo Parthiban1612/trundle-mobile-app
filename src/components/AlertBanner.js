@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Svg, { G, Line, Rect } from 'react-native-svg';
-import WarninIcon from "../images/error.svg";
+import WarninIcon from "../../assets/error.svg";
 
 export default function AlertBanner({ message }) {
   return (

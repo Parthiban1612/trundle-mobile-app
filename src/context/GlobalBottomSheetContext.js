@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useRef, useCallback, useState } from 'react';
-import CustomBottomSheet from '../screens/BottomSheet';
+import CustomBottomSheet from '../components/BottomSheet';
 import { useDispatch } from 'react-redux';
 import { setIsSheetOpen } from '../redux/travelCountriesSlice';
 import logger from '../utils/logger';

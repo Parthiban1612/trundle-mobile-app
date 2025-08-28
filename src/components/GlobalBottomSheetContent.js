@@ -4,7 +4,7 @@ import { fetchSubCategories } from '../redux/subCategoriesSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories, setSelectedCategory, setSelectedSubcategory, clearSelectedFilters } from '../redux/categoriesSlice';
 import { TouchableRipple } from 'react-native-paper';
-import NextButton from './NextButton';
+import Button from './Button';
 import { useGlobalBottomSheet } from '../context/GlobalBottomSheetContext';
 import { getAllItineraries } from '../redux/travelCountriesSlice';
 
@@ -140,7 +140,7 @@ export const FilterContent = ({ onConfirm, onClear }) => {
           </TouchableRipple>
         </View>
         <View style={styles.confirmButton}>
-          <NextButton text="Confirm" onPress={() => {
+          <Button text="Confirm" onPress={() => {
             dispatch(getAllItineraries({
               token,
               categoryId: selectedCategoryId || null,

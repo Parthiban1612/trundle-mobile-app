@@ -8,19 +8,15 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useGlobalBottomSheet } from '../context/GlobalBottomSheetContext';
 import SubscriptionIcon from '../../assets/subscription-badge.svg';
 import CheckIcon from '../../assets/tick.svg';
-import NextButton from './NextButton';
+import Button from './Button';
 import RazorpayCheckout from 'react-native-razorpay';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Toast from 'react-native-toast-message';
 import axios from 'axios';
-import TalkToExpert from '../screens/TalkToExpert';
-
-const planBenefit = [
-  `Add unlimited recommendations to \n your My Trips`,
-  `Build your own itinerary`,
-  `Get tips, updates and real-time \n notifications`,
-  `Talk to our local travel experts and get \n custom made itinerary just for you`
-]
+import TalkToExpert from '../screens/home/TalkToExpert';
+import { RZP_TEST_KEY } from '../redux/endpoints';
+import { ENDPOINTS } from '../redux/endpoints';
+import { getPlans } from '../redux/paymentSlice';
 
 const TAB_CONTAINER_WIDTH = 130;
 
@@ -40,11 +36,19 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  console.log('isPaymentLoading', isPaymentLoading);
-
   const { token, user } = useSelector((state) => state.auth);
 
   const insets = useSafeAreaInsets();
+
+  const dispatch = useDispatch();
+
+  const { planData } = useSelector((state) => state.payment);
+
+  const planDetails = planData?.plans?.[0]
+
+  useEffect(() => {
+    dispatch(getPlans());
+  }, [dispatch]);
 
   useEffect(() => {
     const activeIndex = state.index;
@@ -76,7 +80,8 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
       // Step 1: Initiate payment with backend
       let paymentData;
       try {
-        const initiateResponse = await axios.post('https://mapi.trundle.me/payment/initiate', {}, {
+        const initiateResponse = await axios.post(ENDPOINTS.RZP_INITIATE_PAYMENT
+          , {}, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
@@ -90,10 +95,10 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
         paymentData = initiateResponse.data;
 
       } catch (initiateError) {
-        console.error('Payment initiation failed:', JSON.stringify(initiateError, null, 2));
-        console.error('Error response data:', JSON.stringify(initiateError.response?.data, null, 2));
-        console.error('Error status:', initiateError.response?.status);
-        console.error('Error message:', initiateError.message);
+        // console.error('Payment initiation failed:', JSON.stringify(initiateError, null, 2));
+        // console.error('Error response data:', JSON.stringify(initiateError.response?.data, null, 2));
+        // console.error('Error status:', initiateError.response?.status);
+        // console.error('Error message:', initiateError.message);
 
         Toast.show({
           text1: 'Payment Initiation Failed',
@@ -106,12 +111,12 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
 
       // Simple test payment with minimal options
       const testOptions = {
-        description: 'Test Payment',
+        description: 'Itinerary Purchase',
         currency: 'INR', // Try with INR first as it's more commonly supported
-        key: 'rzp_test_rwwI0xDFigS3Fz',
+        key: RZP_TEST_KEY,
         // key: 'rzp_test_1DP5mmOlF5G5ag',
         order_id: paymentData.order_id,
-        amount: 100, // ₹1.00
+        amount: planData?.price, // ₹1.00
         name: 'Trundle',
         // external: {
         //   wallets: ['paytm'],
@@ -133,7 +138,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
         razorpay_signature: paymentResult.razorpay_signature,
       }
 
-      const confirmResponse = await axios.post('https://mapi.trundle.me/payment/confirmation', data, {
+      const confirmResponse = await axios.post(ENDPOINTS.RZP_CONFIRM_PAYMENT, data, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
@@ -198,7 +203,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
               Unlock premium benefits{'\n'}for just
             </Text>
             <Text style={{ fontSize: 30, fontFamily: 'clash-display-700', color: '#FFFFFF', textAlign: "center" }}>
-              $50
+              ${parseInt(planDetails?.price, 10)}
             </Text>
             <Text style={{ fontSize: 11, fontFamily: 'instrument-sans-500', color: '#FFFFFF', textAlign: "center" }}>
               per trip
@@ -206,7 +211,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
           </View>
 
           <View style={{ gap: 12, padding: 24 }}>
-            {planBenefit.map((item, index) => (
+            {planDetails?.description && Object.values(planDetails.description).map((item, index) => (
               <View key={index} style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
                 <CheckIcon />
                 <Text style={{ fontSize: 15, fontFamily: 'instrument-sans-400', color: '#3B3842' }}>
@@ -215,7 +220,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
               </View>
             ))}
           </View>
-          <NextButton
+          <Button
             style={{ marginHorizontal: 24 }}
             theme="dark"
             text="Proceed to pay"

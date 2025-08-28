@@ -4,9 +4,9 @@ import Feather from 'react-native-vector-icons/Feather';
 import SvgComponent from '../common/CustomMegaphoneIcon';
 
 // Import screens
-import ExplorerScreen from '../screens/Explorer';
+import ExplorerScreen from '../screens/explorer';
 import CustomTabBar from '../components/CustomTabBar';
-import FullPageScroller from '../screens/FullPageScroller';
+import FullPageScroller from '../screens/home';
 
 const Tab = createBottomTabNavigator();
 

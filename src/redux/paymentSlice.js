@@ -35,13 +35,7 @@ export const confirmPayment = createAsyncThunk(
 
       const { token } = getState().auth;
 
-      const config = {
-        ...axiosConfig,
-        headers: {
-          ...axiosConfig.headers,
-          'Authorization': `Bearer ${token}`,
-        },
-      };
+
       const response = await axios.post(ENDPOINTS.CONFIRM_PAYMENT, {
         data: {
           order_id: confirmationData.order_id,
@@ -59,6 +53,29 @@ export const confirmPayment = createAsyncThunk(
   }
 );
 
+export const getPlans = createAsyncThunk(
+  'payment/getPlans',
+  async (_, { rejectWithValue, getState }) => {
+
+    const { token } = getState().auth;
+
+    const config = {
+      ...axiosConfig,
+      headers: {
+        ...axiosConfig.headers,
+        'Authorization': `Bearer ${token}`,
+      },
+    };
+
+    try {
+      const response = await axios.get(ENDPOINTS.GET_PLANS, config);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const initialState = {
   initiatePayment: null,
   confirmPayment: null,
@@ -66,6 +83,9 @@ const initialState = {
   confirmLoading: false,
   initiateError: null,
   confirmError: null,
+  planData: null,
+  getPlansLoading: false,
+  getPlansError: null,
 };
 
 const paymentSlice = createSlice({
@@ -100,6 +120,20 @@ const paymentSlice = createSlice({
       .addCase(confirmPayment.rejected, (state, action) => {
         state.confirmLoading = false;
         state.confirmError = action.payload;
+      })
+      // Handle get plans
+      .addCase(getPlans.pending, (state) => {
+        state.getPlansLoading = true;
+        state.getPlansError = null;
+      })
+      .addCase(getPlans.fulfilled, (state, action) => {
+        state.planData = action.payload;
+        state.getPlansLoading = false;
+        state.getPlansError = null;
+      })
+      .addCase(getPlans.rejected, (state, action) => {
+        state.getPlansLoading = false;
+        state.getPlansError = action.payload;
       });
   }
 });

@@ -15,6 +15,7 @@ import favouriteReducer from './favouriteSlice';
 import carouselReducer from './carouselSlice';
 import updatesReducer from './updateSlices';
 import paymentReducer from './paymentSlice';
+import cmsReducer from './cmsSlice';
 
 // Create persist config for travelCountries slice
 const travelCountriesPersistConfig = {
@@ -33,6 +34,7 @@ const rootReducer = combineReducers({
   carousel: carouselReducer,
   updates: updatesReducer,
   payment: paymentReducer,
+  cms: cmsReducer,
 });
 
 const persistConfig = {

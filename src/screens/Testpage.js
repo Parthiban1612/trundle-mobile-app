@@ -1,5 +1,4 @@
-import React, { useRef } from 'react';
-import { View, Text, StatusBar, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, StatusBar, StyleSheet } from 'react-native';
 import Animated, {
   useAnimatedScrollHandler,
   useSharedValue,
@@ -7,14 +6,13 @@ import Animated, {
   interpolate,
   Extrapolate
 } from 'react-native-reanimated';
-import BackIcon from '../images/left_arrow.svg';
+import BackIcon from '../../assets/left_arrow.svg';
 import { TouchableRipple } from 'react-native-paper';
 import { getStatusBarHeight } from '../utils/platformUtils';
 import { useGlobalBottomSheet } from '../context/GlobalBottomSheetContext';
 import SubscriptionIcon from '../../assets/subscription-badge.svg';
 import CheckIcon from '../../assets/tick.svg';
-import NextButton from '../components/NextButton';
-import GoogleSignInTest from '../components/GoogleSignInTest';
+import Button from '../components/Button';
 
 const Header_Max_Height = 240;
 const Header_Min_Height = 120;
@@ -148,7 +146,7 @@ const Testpage = () => {
             ))}
           </View>
 
-          <NextButton style={{ marginHorizontal: 24 }} theme="dark" text="Proceed to pay" onPress={() => {
+          <Button style={{ marginHorizontal: 24 }} theme="dark" text="Proceed to pay" onPress={() => {
             console.log('Next button pressed');
             closeBottomSheet();
           }} />
@@ -189,18 +187,13 @@ const Testpage = () => {
 
         {/* Bottom Sheet Button */}
         <View style={styles.card}>
-          <NextButton
+          <Button
             onPress={handleOpenBottomSheet}
             style={{ marginHorizontal: 24 }}
             theme="dark"
             text="Open Bottom Sheet" />
         </View>
 
-        {/* Google Sign-In Test */}
-        <View style={styles.card}>
-          <Text style={styles.sectionTitle}>Google Sign-In Test</Text>
-          <GoogleSignInTest />
-        </View>
       </Animated.ScrollView>
     </View>
   )

@@ -4,25 +4,25 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Import screens
-import IntroCarousel from '../screens/IntroCarousel';
-import SignUpTypeScreen from '../screens/SignUpTypeScreen';
-import SignInScreen from '../screens/SignInScreen';
-import OtpVerificationScreen from '../screens/OtpVerificationScreen';
-import AuthSuccessScreen from '../screens/AuthSuccessScreen';
-import CreateProfile from '../screens/CreateProfile';
-import SelectCountryForTrip from '../screens/SelectCountryForTrip';
-import Account from '../screens/Account';
-import Activities from '../screens/Activities';
-import PersonalisedSettings from '../screens/PersonalisedSettings';
+import IntroCarousel from '../screens/auth/IntroCarousel';
+import SignUpTypeScreen from '../screens/auth/signup-type';
+import SignInScreen from '../screens/auth/signin';
+import OtpVerificationScreen from '../screens/auth/otp-verification';
+import AuthSuccessScreen from '../screens/auth/AuthSuccessScreen';
+import CreateProfile from '../screens/auth/create-profile';
+import SelectCountryForTrip from '../screens/home/SelectCountryForTrip';
+import Account from '../screens/account';
+import Activities from '../screens/activities';
+import PersonalisedSettings from '../screens/personolised-settings';
 import BottomTabNavigator from './BottomTabNavigator';
-import UpdateProfile from '../screens/UpdateProfile';
-import LocationDetails from '../screens/LocationDetails';
-import Testpage from '../screens/Testpage';
+import UpdateProfile from '../screens/account/update-profile';
+import LocationDetails from '../screens/itinerary-details';
+// import Testpage from '../screens/Testpage';
 import { fetchQuestions } from '../redux/travelCountriesSlice';
-import PrivacyPolicy from '../screens/PrivacyPolicy';
-import TermsAndConditions from '../screens/TermsAndConditions';
-import TermsOfServices from '../screens/TermOfServices';
-import RefundAndCancellation from '../screens/RefundAndCancellation';
+import PrivacyPolicy from '../screens/cms/PrivacyPolicy';
+import TermsAndConditions from '../screens/cms/TermsAndConditions';
+import TermsOfServices from '../screens/cms/TermOfServices';
+import RefundAndCancellation from '../screens/cms/RefundAndCancellation';
 
 const Stack = createStackNavigator();
 

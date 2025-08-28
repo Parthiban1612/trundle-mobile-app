@@ -3,7 +3,7 @@ import { StatusBar, View, Animated } from 'react-native'
 import { getStatusBarHeight } from '../utils/platformUtils'
 import { Text, TouchableRipple } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
-import BackIcon from '../images/left_arrow.svg';
+import BackIcon from '../../assets/left_arrow.svg';
 
 export default function PrimaryLayout({ title, scrollOffsetY, children }) {
   const navigation = useNavigation();

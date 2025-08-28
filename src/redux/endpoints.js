@@ -1,6 +1,8 @@
 // Base API configuration
 export const API_BASE_URL = 'https://mapi.trundle.me';
 
+export const RZP_TEST_KEY = 'rzp_test_rwwI0xDFigS3Fz';
+
 // Common axios configuration
 export const axiosConfig = {
   baseURL: API_BASE_URL,
@@ -42,4 +44,18 @@ export const ENDPOINTS = {
   UPDATE_USER_PROFILE: `${API_BASE_URL}/accounts/upload-profile-image`,
   INITIATE_PAYMENT: `${API_BASE_URL}/payment/initiate`,
   CONFIRM_PAYMENT: `${API_BASE_URL}/payment/confirm`,
+
+  // RZP
+  RZP_INITIATE_PAYMENT: `${API_BASE_URL}/payment/initiate`,
+  RZP_CONFIRM_PAYMENT: `${API_BASE_URL}/payment/confirmation`,
+  RZP_VERIFY_PAYMENT: `${API_BASE_URL}/payment/verify`,
+
+  GET_PLANS: `${API_BASE_URL}/payment/plans`,
+
+  PRIVACY_POLICY: `${API_BASE_URL}/cms/large-contents/privacy-policy`,
+  TERMS_OF_SERVICE: `${API_BASE_URL}/cms/large-contents/terms-of-service`,
+  TERMS_AND_CONDITIONS: `${API_BASE_URL}/cms/large-contents/terms-and-conditions`,
+  REFUND_AND_CANCELLATION: `${API_BASE_URL}/cms/large-contents/refund-and-cancellation`,
+
+
 }; 

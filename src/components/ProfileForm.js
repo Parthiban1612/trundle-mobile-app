@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Image } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import AntDesign from '@expo/vector-icons/AntDesign';
@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchCountries } from '../redux/countrySlice';
 import CountryModal from './CountryModal';
 import GenderModal from './GenderModal';
-import NextButton from './NextButton';
+import Button from './Button';
 import { TouchableRipple } from 'react-native-paper';
 
 // Validation schema
@@ -279,7 +279,7 @@ const ProfileForm = ({
             </View>
 
             {showSubmitButton && (
-              <NextButton
+              <Button
                 theme="dark"
                 onPress={handleSubmit}
                 loading={submitButtonLoading}
@@ -291,7 +291,7 @@ const ProfileForm = ({
                 ]}>
                   {submitButtonLoading ? 'Saving...' : submitButtonText}
                 </Text>
-              </NextButton>
+              </Button>
             )}
 
             {/* Country Selection Modal */}
